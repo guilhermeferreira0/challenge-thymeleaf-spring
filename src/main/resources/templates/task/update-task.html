@@ -1,0 +1,51 @@
+<!doctype html>
+    <html lang="pt-br">
+    <head th:replace="~{fragments/fragments :: head(EditTask)}"></head>
+    <body>
+        <div th:replace="~{fragments/fragments :: header}"></div>
+
+        <main>
+            <h1>Update Task</h1>
+            <form
+                th:action="@{/task/update/{id}(id=${task.id})}"
+                method="post"
+                th:object="${task}"
+            >
+                <input type="hidden" th:field="*{id}" />
+
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" th:field="*{title}">
+                </div>
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <input type="text" class="form-control" id="status" name="status" th:field="*{status}">
+                </div>
+                <div class="mb-3">
+                    <label for="priority" class="form-label">Priority</label>
+                    <input type="text" class="form-control" id="priority" name="priority" th:field="*{priority}">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <label for="description"></label><textarea id="description" name="description" class="form-control" th:field="*{description}"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="date" name="date" th:field="*{date}">
+                </div>
+
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">Confirm</button>
+                </div>
+                <div class="col-auto">
+                        <span class="form-text text-danger">
+                          <p th:if="${error}">Erro Encontrado</p>
+                        </span>
+                </div>
+            </form>
+        </main>
+
+        <div th:replace="~{fragments/fragments :: footer}"></div>
+        <div th:replace="~{fragments/fragments :: scripts}"></div>
+    </body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+    <html lang="pt-br">
+    <head th:replace="~{fragments/fragments :: head(RegisterTask)}"></head>
+    <body>
+        <div th:replace="~{fragments/fragments :: header}"></div>
+
+        <main>
+            <h1>Register Task</h1>
+            <form
+                th:action="@{/task/create}"
+                method="post"
+                th:object="${task}"
+            >
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Task title">
+                </div>
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <input type="text" class="form-control" id="status" name="status" placeholder="Task status">
+                </div>
+                <div class="mb-3">
+                    <label for="priority" class="form-label">Priority</label>
+                    <input type="text" class="form-control" id="priority" name="priority" placeholder="Task priority">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <label for="description"></label><textarea id="description" name="description" class="form-control"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="date" name="date">
+                </div>
+
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">Confirm</button>
+                </div>
+                <div class="col-auto">
+                        <span class="form-text text-danger">
+                          <p th:if="${error}">Erro Encontrado</p>
+                        </span>
+                </div>
+            </form>
+        </main>
+
+        <div th:replace="~{fragments/fragments :: footer}"></div>
+        <div th:replace="~{fragments/fragments :: scripts}"></div>
+    </body>
+</html>

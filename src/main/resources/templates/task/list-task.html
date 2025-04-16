@@ -1,0 +1,76 @@
+<!doctype html>
+    <html lang="pt-br">
+    <head th:replace="~{fragments/fragments :: head(ListTask)}"></head>
+    <body>
+
+        <div th:replace="~{fragments/fragments :: header}"></div>
+
+        <main>
+            <h1>List Task</h1>
+            <table class="table table-striped-columns">
+                <thead>
+                <tr>
+                    <th> Title </th>
+                    <th> Description </th>
+                    <th> Status </th>
+                    <th> Priority </th>
+                    <th> Date </th>
+                    <th> Options </th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${tasks.isEmpty()}">
+                        <td colspan="2"> No Tasks Available </td>
+                    </tr>
+                    <tr th:each="task : ${tasks}">
+                        <td><span th:text="${task.title}"> title </span></td>
+                        <td><span th:text="${task.description}"> description </span></td>
+                        <td><span th:text="${task.status}"> status </span></td>
+                        <td><span th:text="${task.priority}"> priority </span></td>
+                        <td><span th:text="${task.date}"> date </span></td>
+                        <td>
+                            <button
+                                    type="button"
+                                    class="btn btn-danger btnDelete"
+                                    id="btnDelete"
+                                    th:attr="data-id=${task.getId()}"
+                            >
+                                Delete
+                            </button>
+                            <a
+                                th:href="@{/task/update/{id}(id=${task.getId()})}"
+                                class="btn btn-success"
+                            >
+                                Edit
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+
+        <div th:replace="~{fragments/fragments :: footer}"></div>
+        <div th:replace="~{fragments/fragments :: scripts}"></div>
+            <script>
+                document.querySelectorAll('.btnDelete').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const taskId = btn.getAttribute('data-id');
+                        console.log("Deletando task com id:", taskId);
+
+                        fetch(`/v1/task/${taskId}`, {
+                            method: "DELETE",
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        }).then(res => {
+                            if (res.ok) {
+                                location.reload();
+                            } else {
+                                console.error("Erro ao deletar:", res.status);
+                            }
+                        });
+                    });
+                });
+            </script>
+    </body>
+</html>
