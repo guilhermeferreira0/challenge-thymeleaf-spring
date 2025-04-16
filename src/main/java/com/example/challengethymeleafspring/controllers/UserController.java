@@ -17,11 +17,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /* Get all Users */
     @GetMapping
     public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity.ok(this.userService.findAll());
     }
 
+    /* Create new User */
     @PostMapping
     public ResponseEntity createUser(@RequestBody UserDto user) {
         User createdUser = userService.create(user);
@@ -29,6 +31,7 @@ public class UserController {
         return ResponseEntity.ok(createdUser);
     }
 
+    /* Get user per id */
     @GetMapping(path ="{id}")
     public ResponseEntity getUserById(@PathVariable("id") String id) {
         User user = userService.findById(id);
@@ -36,6 +39,7 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    /* Updating user */
     @PatchMapping(path = "{id}")
     public ResponseEntity updateUser(
             @PathVariable("id") String id,
@@ -46,6 +50,7 @@ public class UserController {
         return ResponseEntity.ok(updateUser);
     }
 
+    /* Deleting user */
     @DeleteMapping(path = "{id}")
     public ResponseEntity deleteUser(@PathVariable("id") String id) {
         User user = userService.findById(id);

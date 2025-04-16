@@ -20,6 +20,7 @@ public class MainController {
     @Autowired
     private UserService userService;
 
+    /* Redirecting login page */
     @GetMapping("/login")
     public ModelAndView getLoginPage(
             @RequestParam(defaultValue = "false", required = false) Boolean error,
@@ -32,6 +33,7 @@ public class MainController {
         return modelAndView;
     }
 
+    /* Redirecting register page */
     @GetMapping("/register")
     public ModelAndView getRegisterPage() {
         ModelAndView modelAndView = new ModelAndView("register");
@@ -39,6 +41,7 @@ public class MainController {
         return modelAndView;
     }
 
+    /* Redirecting register task */
     @GetMapping("/task/register")
     public ModelAndView getRegisterTaskPage() {
         ModelAndView modelAndView = new ModelAndView("/task/register-task");
@@ -46,6 +49,7 @@ public class MainController {
         return modelAndView;
     }
 
+    /* Redirecting list task */
     @GetMapping("/task/all")
     public ModelAndView getListTaskPage() {
         ModelAndView modelAndView = new ModelAndView("/task/list-task");
@@ -55,6 +59,7 @@ public class MainController {
         return modelAndView;
     }
 
+    /* Redirecting update task */
     @GetMapping("/task/update/{id}" )
     public ModelAndView getUpdateTaskPage(@PathVariable("id") String id) {
 
@@ -65,6 +70,7 @@ public class MainController {
         return modelAndView;
     }
 
+    /* Creating new task*/
     @PostMapping("/task/create")
     public ModelAndView createTask(@ModelAttribute("task") TaskDto task) {
         this.taskService.create(task);
@@ -72,6 +78,7 @@ public class MainController {
         return new ModelAndView("redirect:/task/all");
     }
 
+    /* Creating new user */
     @PostMapping("/register")
     public ModelAndView registerNewUser(@ModelAttribute("user") UserDto user) {
         this.userService.create(user);
@@ -81,6 +88,7 @@ public class MainController {
         return modelAndView;
     }
 
+    /* Updating task */
     @PostMapping("/task/update/{id}")
     public ModelAndView updateTask(
             @ModelAttribute("task") TaskDto task,

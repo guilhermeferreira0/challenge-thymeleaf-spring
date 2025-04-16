@@ -17,6 +17,7 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
+    /* Creating new task */
     @PostMapping()
     public ResponseEntity createTask(@RequestBody TaskDto task) {
         System.out.println(task);
@@ -26,6 +27,7 @@ public class TaskController {
         return ResponseEntity.ok(taskEntity);
     }
 
+    /* Get task per id */
     @GetMapping(path = {"id"})
     public ResponseEntity getTaskById(@PathVariable("id") String id) {
         Task task = taskService.getById(id);
@@ -33,6 +35,7 @@ public class TaskController {
         return ResponseEntity.ok(task);
     }
 
+    /* Get all Tasks */
     @GetMapping()
     public ResponseEntity getAll() {
         List<Task> tasks = taskService.getAll();
@@ -40,6 +43,7 @@ public class TaskController {
         return ResponseEntity.ok(tasks);
     }
 
+    /* Delete task */
     @DeleteMapping(path = "{id}")
     public ResponseEntity deleteTask(@PathVariable("id") String id) {
         this.taskService.delete(id);
